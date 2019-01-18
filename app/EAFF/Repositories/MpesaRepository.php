@@ -1,4 +1,7 @@
 <?php
+
+namespace EAFF\Repositories;
+
 /**
  * This is a simple PHP class for scoring MPesa transactions.
  * 
@@ -7,7 +10,7 @@
  * @author Maurice Wagura <wagura465@gmail.com>
  */
 
-class Mpesa {
+class MpesaRepository {
 
 	/**
 	 * The common part of scoring MPesa transactions.
@@ -66,29 +69,25 @@ class Mpesa {
 	    return false;
 	}
 
-	public function test($value) {
-		return strtoupper($value);
-	}
-
 	public function getScore($ARRAY_DATA) {
 		foreach ($ARRAY_DATA as $key => $value) {
 
-			$ARRAY_DATA[$key]['score'] = $BASELINE; // set baseline before looping through the data.
+			$ARRAY_DATA[$key]['score'] = $this->BASELINE; // set baseline before looping through the data.
 
 			if ($value['transaction'] >= 0) { // checnking for positive transactions i.e deposites
-				$ARRAY_DATA[$key]['score'] = $DEPOSIT;
+				$ARRAY_DATA[$key]['score'] = $this->DEPOSIT;
 			}
 
 			if ($this->filter_data($value['description'], array('Customer Withdrawal'))) { // checking for customer withdrawals
-				$ARRAY_DATA[$key]['score'] = $WITHDRAWAL;
+				$ARRAY_DATA[$key]['score'] = $this->WITHDRAWAL;
 			}
 
 			if ($this->filter_data($value['description'], array('Merchant Payment', 'Pay Bill to'))) { // checking for customer payments to paybills an marchant tills
-				$ARRAY_DATA[$key]['score'] = $PAYBILL_TILL;
+				$ARRAY_DATA[$key]['score'] = $this->PAYBILL_TILL;
 			}
 
 			if ($this->filter_data($value['description'], array('Airtime Purchase'))) { // checking for customer airtime purchases
-				$ARRAY_DATA[$key]['score'] = $AIRTIME;
+				$ARRAY_DATA[$key]['score'] = $this->AIRTIME;
 			}
 		}
 
