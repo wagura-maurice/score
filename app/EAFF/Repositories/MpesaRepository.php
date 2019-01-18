@@ -94,4 +94,12 @@ class MpesaRepository {
 		return json_encode($ARRAY_DATA);
 	}
 
+	public function total_score($ARRAY_DATA) {
+		$score = $this->BASELINE;
+		foreach ($ARRAY_DATA as $key => $value) {
+			$score += $value['score'];
+		}
+		return $score;
+	}
+
 }
