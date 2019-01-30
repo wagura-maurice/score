@@ -3,5 +3,8 @@
 		"psr-4": {
 			"EAFF\\": "app/EAFF"
 		}
+	},
+	"require": {
+		"phpunit/phpunit": "^7.5"
 	}
 }
